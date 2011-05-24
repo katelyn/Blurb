@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Manual Close Notifier</title>
+		<script type="text/javascript" src="../lib/js/jquery.min.js"></script>
+		<script type="text/javascript" src="../blurb.js"></script>
+		<link rel="stylesheet" href="../lib/css/demo.css" media="screen" />	
+		<link rel="stylesheet" href="../blurb.css" media="screen" />	
+	</head>
+	<body>
+		<div id="demo-content" class="clearfix">
+			<h2>
+				BlurbJS
+			</h2>
+			<h3>
+				Manual Close Notifier
+			</h3>
+			<pre id="demo-code">
+var notifier = new Blurb({
+  displayDuration: -1,
+  cssClass: "nice-notify"
+});
+notifier.show("Message 1.");		
+			</pre>
+			<a class="btn left" href="multiple_msgs.html">
+				&larr; Prev
+			</a>
+			<a class="btn right" href="default.html">
+				Next &rarr; 
+			</a>
+			<br><br>
+		</div>
+		
+		<script type="text/javascript">
+		var notifier = new Blurb({
+		    displayDuration: -1,
+		    cssClass: "nice-notify"
+		});
+		notifier.show("Message 1.");
+		</script>
+	</body>
+</html>
