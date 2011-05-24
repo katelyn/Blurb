@@ -223,7 +223,7 @@ var Blurb = function(userOptions)
     };
 
     /**
-     * Appends a message and show the notification popup
+     * Appends a message and shows the notification popup.
      */
     this.show = function(msg)
     {
