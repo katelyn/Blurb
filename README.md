@@ -13,7 +13,7 @@ Check out the demos - they are pretty much self explanatory.
 
 ### API
 
-#### User Options
+#### `User Options`
 You can pass a number of options when creating a new Blurb object.
 
 1. **position** : The position of the notifier popup. 
