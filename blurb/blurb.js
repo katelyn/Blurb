@@ -24,6 +24,15 @@ var Blurb = function(userOptions)
     var visible = false;
     var elem = null;
     var timeoutId = 0;
+    var defCSS = {
+        backgroundColor : "#222",
+        opacity : "0.8",
+        padding : "5px 20px 5px 20px",
+        color : "white",
+        textShadow : "1px 2px black",
+        fontFamily : "Helvetica Neue",
+        fontSize : "0.86em"
+    };
     
     /* Notifier Options */
     this.options = {
@@ -32,16 +41,7 @@ var Blurb = function(userOptions)
         fadeOutDuration : 100,
         displayDuration : 3000,
         cssClass : "",
-        cssStyle : {
-            backgroundColor : "#222",
-            opacity : "0.8",
-            padding : "5px 20px 5px 20px",
-            color : "white",
-            textShadow : "1px 2px black",
-            fontFamily : "Helvetica Neue",
-            fontSize : "0.86em",
-            borderRadius: "4px"
-        },
+        cssStyle : defCSS,
         content : "This is a nice notification.",
         showCloseButton: true
     };
@@ -122,7 +122,7 @@ var Blurb = function(userOptions)
         if (cssClass) {
             elem.addClass(cssClass);
         } else {
-            elem.css(cssStyle);
+            elem.css(cssStyle || defCSS);
         }
     };
 
@@ -152,58 +152,76 @@ var Blurb = function(userOptions)
             position : "fixed"
         });
         $("body").append(elem);
-        var w = elem.outerWidth(), h = elem.outerHeight(), pad = 10, left = pad, center_y = $(
-                window).height()
-                / 2 - h / 2 - pad, center_x = $(window).width() / 2 - w / 2
-                - pad, x_ = "left", y_ = "top", position = this.options.position;
-
-        var tokens = position.split(/-/);
-        if (tokens.length === 2) {
-            x_ = (tokens[0] === "center") ? "left" : tokens[0];
-            y_ = (tokens[1] === "center") ? "top" : tokens[1];
+        elem.css(this._getCoords(this.options.position));
+    };
+    
+    this._getCoords = function(position)
+    {
+        if (!position) {
+            position = "right-top";
+        }
+       
+        var w = elem.outerWidth(), 
+            h = elem.outerHeight(), 
+            pad = 10, 
+            center_y = $(window).height() / 2 - h / 2 - pad, 
+            center_x = $(window).width() / 2 - w / 2 - pad, 
+            x_ = "right", 
+            y_ = "top", 
+            x  = 0,
+            y  = 0,
+            posTokens = position.split(/-/),
+            pixTokens = position.split(/\s+/);
+        
+        if (posTokens.length === 2) {
+            if (posTokens[0] in ["right, center, left"]) {
+                x_ = (posTokens[0] === "center") ? "left" : posTokens[0];
+            }
+            if (posTokens[1] in ["top, bottom, center"]) {
+                y_ = (posTokens[1] === "center") ? "top" : posTokens[1];
+            }
+            switch (position) {
+                case "center-center":
+                    x = center_x;
+                    y = center_y;
+                    break;
+                case "left-top":
+                case "right-top":
+                case "left-bottom":
+                case "right-bottom":
+                case "left-top":
+                    x = pad;
+                    y = pad;
+                    break;
+                case "center-top":
+                case "center-bottom":
+                    x = center_x;
+                    y = pad;
+                    break;
+                case "left-center":
+                case "right-center":
+                    x = pad;
+                    y = center_y;
+                    break;
+            }
+        } else if (pixTokens.length == 2) {
+            x = parseFloat(pixTokens[0]);
+            y = parseFloat(pixTokens[1]);
+            if (!x || !y){
+                x = pad;
+                y = pad;
+            } else {
+                x_ = "left";
+            }
         } else {
-            x_ = "left";
-            y_ = "top";
+            x = pad;
+            y = pad;
         }
-        switch (position) {
-            case "center":
-                x = center_x;
-                y = center_y;
-                break;
-            case "left-top":
-            case "right-top":
-            case "left-bottom":
-            case "right-bottom":
-            case "left-top":
-                x = pad;
-                y = pad;
-                break;
-            case "center-top":
-                x = center_x;
-                y = pad;
-                break;
-            case "left-center":
-                x = pad;
-                y = center_y;
-                break;
-            case "right-center":
-                x = pad;
-                y = center_y;
-                break;
-            case "center-bottom":
-                x = center_x;
-                y = bottom;
-                break;
-            default:
-                var tokens = position.split(/\s+/);
-                x = parseFloat(tokens[0]);
-                y = parseFloat(tokens[1]);
-                break;
-        }
+        
         var pos = {};
         pos[x_] = x;
         pos[y_] = y;
-        elem.css(pos);
+        return pos;
     };
     
     /* Public API */
@@ -233,6 +251,14 @@ var Blurb = function(userOptions)
             this._makeVisible();
         }
         this._wait();
+    };
+    
+    /**
+     * Returns the HTML element.
+     */
+    this.elem = function()
+    {
+        return elem;
     };
 
     /* Init code. */
