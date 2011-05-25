@@ -1,7 +1,4 @@
-# BlurbJS
-
-<br>
-## Growl-like Javascript Notifications.
+# BlurbJS - Growl-like JS notifications.
 
 ### Features 
 1. Easy to construct, with sensible defaults. 
@@ -29,3 +26,9 @@ You can pass a number of options when creating a new Blurb object.
 6. **cssStyle** : A custom CSS style to append (inline) to the popup. This will overwrite any default styling! _Defaults to some sensible CSS styles :)._
 7. **content** : The (default) content of the notification if not passed a message through `show()`. Look at the demos for some code. _Defaults to "This is a nice notification."._
 8. **showCloseButton** : Toggles the close button. _Defaults to true._
+
+#### `show()`
+Makes the popup visible.
+
+#### `close()`
+Closes the popup.
