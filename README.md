@@ -1,7 +1,5 @@
-# Blurb
-
+# BlurbJS
 ## Growl-like Javascript Notifications.
-
 ## Features 
 1. Easy to construct, with sensible defaults. 
 2. Create as many notifiers as you like. 
