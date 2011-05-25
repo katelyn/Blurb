@@ -1,5 +1,4 @@
 # Blurb
-
 ## Growl-like Javascript Notifications.
 
 ## Features 
