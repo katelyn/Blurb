@@ -34,4 +34,4 @@ Makes the popup visible.
 Closes the popup.
 
 #### `elem()`
-Closes the HTML element of the popup.
+Returns the DOM element of the popup.
